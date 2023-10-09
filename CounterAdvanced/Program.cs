@@ -6,10 +6,11 @@ using System.Threading.Tasks;
 
 namespace CounterAdvanced
 {
-    internal class Program
+    internal class ZliczLitery
     {
         static void Main(string[] args)
         {
+            string napis;
 
         }
     }
