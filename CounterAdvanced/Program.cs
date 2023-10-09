@@ -8,10 +8,16 @@ namespace CounterAdvanced
 {
     internal class ZliczLitery
     {
+        public static int Zlicz(string napis)
+        {
+            return 0;
+        }
         static void Main(string[] args)
         {
             string napis;
-
+            Console.WriteLine("Podaj napis: ");
+            napis = Console.ReadLine();
+            Zlicz(napis);
         }
     }
 }
