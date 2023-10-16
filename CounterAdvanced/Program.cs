@@ -10,14 +10,17 @@ namespace CounterAdvanced
     {
         public static int Zlicz(string napis)
         {
-            return 0;
+            int suma = 0;
+            suma = napis.Length;
+            return suma;
         }
         static void Main(string[] args)
         {
             string napis;
             Console.WriteLine("Podaj napis: ");
             napis = Console.ReadLine();
-            Zlicz(napis);
+            Console.WriteLine($"Długość napisu: {Zlicz(napis)} znaków");
+            Console.ReadKey();
         }
     }
 }
