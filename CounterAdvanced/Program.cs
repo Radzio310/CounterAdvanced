@@ -125,6 +125,7 @@ namespace CounterAdvanced
                     Console.WriteLine($"Wystąpił błąd podczas zapisywania pliku: {ex.Message}");
                 }
             }
+            Console.WriteLine("Dodana losowa zmiana do Git Stasha");
 
             Console.ReadKey();
         }
