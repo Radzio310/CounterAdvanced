@@ -10,27 +10,27 @@ namespace CounterAdvanced
 {
     internal class ZliczLitery
     {
-        static Dictionary<char, int> CalculateCharFrequency(string inputText)
+        static Dictionary<char, int> CalculateCharFrequency(string inputText, List<char> lettersToCheck)
         {
-        Dictionary<char, int> charFrequency = new Dictionary<char, int>();
+            Dictionary<char, int> charFrequency = new Dictionary<char, int>();
 
-        foreach (char c in inputText)
-        {
-            if (Char.IsLetter(c))
+            foreach (char c in inputText)
             {
-                char lowercaseChar = Char.ToLower(c);
-                if (charFrequency.ContainsKey(lowercaseChar))
+                if (Char.IsLetter(c) && lettersToCheck.Contains(c))
                 {
-                    charFrequency[lowercaseChar]++;
-                }
-                else
-                {
-                    charFrequency[lowercaseChar] = 1;
+                    char lowercaseChar = Char.ToLower(c);
+                    if (charFrequency.ContainsKey(lowercaseChar))
+                    {
+                        charFrequency[lowercaseChar]++;
+                    }
+                    else
+                    {
+                        charFrequency[lowercaseChar] = 1;
+                    }
                 }
             }
-        }
 
-        return charFrequency;
+            return charFrequency;
         }
 
         static void DisplayHistogram(Dictionary<char, int> charFrequency)
@@ -39,10 +39,10 @@ namespace CounterAdvanced
 
             foreach (var entry in charFrequency)
             {
-            Console.WriteLine($"{entry.Key}: {new string('*', entry.Value)}");
+                Console.WriteLine($"{entry.Key}: {new string('*', entry.Value)}");
             }
         }
-         
+
         static void SaveHistogramToFile(string filePath, Dictionary<char, int> charFrequency)
         {
             using (StreamWriter writer = new StreamWriter(filePath))
@@ -56,27 +56,30 @@ namespace CounterAdvanced
             }
         }
 
-        //public static int Zlicz(string napis)
-        //{
-        //    int suma = 0;
-        //   suma = napis.Length;
-        //    return suma;
-        //}
-        // public static char PierwszyZnak(string napis)
-        //{
-        //    return napis[0];
-        //}
-
         static void Main(string[] args)
         {
             Console.WriteLine("Podaj tekst:");
             string inputText = Console.ReadLine();
 
-            Dictionary<char, int> charFrequency = CalculateCharFrequency(inputText);
+            Console.WriteLine("Podaj zestaw liter do sprawdzenia (oddzielone przecinkami, np. a,b,c):");
+            string lettersInput = Console.ReadLine();
+
+            // Rozdziel podane litery przy użyciu przecinka jako separatora
+            string[] lettersArray = lettersInput.Split(',');
+
+            // Konwertuj tablicę stringów na listę char
+            List<char> lettersToCheck = new List<char>();
+            foreach (string letter in lettersArray)
+            {
+                char singleLetter = Convert.ToChar(letter.Trim()); // Usuń spacje wokół litery
+                lettersToCheck.Add(singleLetter);
+            }
+
+            Dictionary<char, int> charFrequency = CalculateCharFrequency(inputText, lettersToCheck);
             DisplayHistogram(charFrequency);
 
             //Console.WriteLine("Podaj ścieżkę do pliku, w którym chcesz zapisać histogram:");
-            string filePath = "C:\\Users\\kamil\\Desktop\\Wynik";
+            string filePath = "C:\\Users\\phant\\OneDrive\\Pulpit\\CAdv\\wynik.txt";
 
             try
             {
