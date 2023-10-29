@@ -136,9 +136,8 @@ namespace CounterAdvanced
 
                 Dictionary<char, int> charFrequency = CalculateCharFrequency(inputText, lettersToCheck);
                 DisplayHistogram(charFrequency);
-            DisplayHistogram(charFrequency);
+
                 string filePath = "C:\\Users\\kamil\\Desktop\\Wynik\\wynik.txt";
-            string filePath = "C:\\Users\\phant\\OneDrive\\Pulpit\\CAdv\\wynik.txt";
 
                 try
                 {
