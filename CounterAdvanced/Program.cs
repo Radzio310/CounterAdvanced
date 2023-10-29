@@ -9,35 +9,34 @@ using System.Threading.Tasks;
 
 namespace CounterAdvanced
 {
-    internal class ZliczLitery
+    internal class zLiCzLiTeRy
     {
-
         static string WczytajTekst()
         {
             Console.WriteLine("Wybierz źródło tekstu:");
             Console.WriteLine("1. Wczytaj tekst z klawiatury");
-            Console.WriteLine("2. Wczytaj tekst z URLa");
+            Console.WriteLine("2. Wczytaj tekst z uRla");
 
-            int choice;
-            while (!int.TryParse(Console.ReadLine(), out choice) || (choice != 1 && choice != 2))
+            int cHoIcE;
+            while (!int.TryParse(Console.ReadLine(), out cHoIcE) || (cHoIcE != 1 && cHoIcE != 2))
             {
                 Console.WriteLine("Nieprawidłowy wybór. Spróbuj ponownie.");
             }
 
-            if (choice == 1)
+            if (cHoIcE == 1)
             {
                 Console.WriteLine("Podaj tekst:");
                 return Console.ReadLine();
             }
             else
             {
-                Console.WriteLine("Podaj adres URL:");
-                string url = Console.ReadLine();
+                Console.WriteLine("Podaj adres uRl:");
+                string uRl = Console.ReadLine();
                 try
                 {
-                    using (WebClient client = new WebClient())
+                    using (WebClient cLiEnT = new WebClient())
                     {
-                        return client.DownloadString(url);
+                        return cLiEnT.DownloadString(uRl);
                     }
                 }
                 catch (Exception ex)
@@ -49,101 +48,78 @@ namespace CounterAdvanced
         }
 
 
-        static Dictionary<char, int> CalculateCharFrequency(string inputText, List<char> lettersToCheck)
+        static Dictionary<char, int> CalculatecHaRfReQuEnCy(string iNpUtTeXt, List<char> lEtTeRsToChEcK)
         {
-            Dictionary<char, int> charFrequency = new Dictionary<char, int>();
+            Dictionary<char, int> cHaRfReQuEnCy = new Dictionary<char, int>();
 
-            foreach (char c in inputText)
+            foreach (char c in iNpUtTeXt)
             {
-                if (Char.IsLetter(c) && lettersToCheck.Contains(c))
+                if (Char.IsLetter(c) && lEtTeRsToChEcK.Contains(c))
                 {
-                    char lowercaseChar = Char.ToLower(c);
-                    if (charFrequency.ContainsKey(lowercaseChar))
+                    char lOwErCaSeChAr = Char.ToLower(c);
+                    if (cHaRfReQuEnCy.ContainsKey(lOwErCaSeChAr))
                     {
-                        charFrequency[lowercaseChar]++;
+                        cHaRfReQuEnCy[lOwErCaSeChAr]++;
                     }
                     else
                     {
-                        charFrequency[lowercaseChar] = 1;
+                        cHaRfReQuEnCy[lOwErCaSeChAr] = 1;
                     }
                 }
             }
 
-            return charFrequency;
+            return cHaRfReQuEnCy;
         }
 
-        static void DisplayHistogram(Dictionary<char, int> charFrequency)
+        static void DisplayHistogram(Dictionary<char, int> cHaRfReQuEnCy)
         {
             Console.WriteLine("Histogram częstości występowania liter:");
 
-            foreach (var entry in charFrequency)
+            foreach (var eNtRy in cHaRfReQuEnCy)
             {
-                Console.WriteLine($"{entry.Key}: {new string('*', entry.Value)}");
+                Console.WriteLine($"{eNtRy.Key}: {new string('*', eNtRy.Value)}");
             }
         }
 
-        static void SaveHistogramToFile(string filePath, Dictionary<char, int> charFrequency)
+        static void SaveHistogramToFile(string fIlEpAtH, Dictionary<char, int> cHaRfReQuEnCy)
         {
-            using (StreamWriter writer = new StreamWriter(filePath))
+            using (StreamWriter wRiTeR = new StreamWriter(fIlEpAtH))
             {
-                writer.WriteLine("Histogram częstości występowania liter:");
+                wRiTeR.WriteLine("Histogram częstości występowania liter:");
 
-                foreach (var entry in charFrequency)
+                foreach (var eNtRy in cHaRfReQuEnCy)
                 {
-                    writer.WriteLine($"{entry.Key}: {new string('*', entry.Value)}");
+                    wRiTeR.WriteLine($"{eNtRy.Key}: {new string('*', eNtRy.Value)}");
                 }
             }
         }
 
         static void Main(string[] args)
         {
-            string inputText = WczytajTekst();
+            string iNpUtTeXt = WczytajTekst();
 
-
-            if (inputText != null)
+            if (iNpUtTeXt != null)
             {
                 Console.WriteLine("Podaj zestaw liter do sprawdzenia (oddzielone przecinkami, np. a,b,c):");
-                string lettersInput = Console.ReadLine();
+                string lEtTeRsInPuT = Console.ReadLine();
 
-                string[] lettersArray = lettersInput.Split(',');
-                List<char> lettersToCheck = new List<char>();
-                foreach (string letter in lettersArray)
+                string[] lEtTeRsArray = lEtTeRsInPuT.Split(',');
+                List<char> lEtTeRsToChEcK = new List<char>();
+                foreach (string lEtTeR in lEtTeRsArray)
                 {
-                    char singleLetter = Convert.ToChar(letter.Trim());
-                    lettersToCheck.Add(singleLetter);
+                    char singlelEtTeR = Convert.ToChar(lEtTeR.Trim());
+                    lEtTeRsToChEcK.Add(singlelEtTeR);
                 }
 
-            Console.WriteLine("Podaj zestaw liter do sprawdzenia (oddzielone przecinkami, np. a,b,c):");
-            string lettersInput = Console.ReadLine();
+                Dictionary<char, int> cHaRfReQuEnCy = CalculatecHaRfReQuEnCy(iNpUtTeXt, lEtTeRsToChEcK);
+                DisplayHistogram(cHaRfReQuEnCy);
 
-            // Rozdziel podane litery przy użyciu przecinka jako separatora
-            string[] lettersArray = lettersInput.Split(',');
-
-            // Konwertuj tablicę stringów na listę char
-            List<char> lettersToCheck = new List<char>();
-            foreach (string letter in lettersArray)
-            {
-                char singleLetter = Convert.ToChar(letter.Trim()); // Usuń spacje wokół litery
-                lettersToCheck.Add(singleLetter);
-            }
-
-            Dictionary<char, int> charFrequency = CalculateCharFrequency(inputText, lettersToCheck);
-            DisplayHistogram(charFrequency);
-
-            //Console.WriteLine("Podaj ścieżkę do pliku, w którym chcesz zapisać histogram:");
-            string filePath = "C:\\Users\\phant\\OneDrive\\Pulpit\\CAdv\\wynik.txt";
-
-
-                Dictionary<char, int> charFrequency = CalculateCharFrequency(inputText, lettersToCheck);
-                DisplayHistogram(charFrequency);
-            DisplayHistogram(charFrequency);
-                string filePath = "C:\\Users\\kamil\\Desktop\\Wynik\\wynik.txt";
-            string filePath = "C:\\Users\\phant\\OneDrive\\Pulpit\\CAdv\\wynik.txt";
+                string fIlEpAtH = "C:\\Users\\kamil\\Desktop\\Wynik\\wynik.txt";
 
                 try
                 {
-                    SaveHistogramToFile(filePath, charFrequency);
-                    Console.WriteLine($"Histogram został zapisany do pliku: {filePath}");
+                    SaveHistogramToFile(fIlEpAtH, cHaRfReQuEnCy);
+                    Console.WriteLine($"Histogram został zapisany do pliku: {fIlEpAtH}");
                 }
                 catch (Exception ex)
                 {
