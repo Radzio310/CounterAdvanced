@@ -47,6 +47,7 @@ namespace CounterAdvanced
             }
         }
 
+
         static Dictionary<char, int> CalculatecHaRfReQuEnCy(string iNpUtTeXt, List<char> lEtTeRsToChEcK)
         {
             Dictionary<char, int> cHaRfReQuEnCy = new Dictionary<char, int>();
