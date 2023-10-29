@@ -114,8 +114,7 @@ namespace CounterAdvanced
                 Dictionary<char, int> cHaRfReQuEnCy = CalculatecHaRfReQuEnCy(iNpUtTeXt, lEtTeRsToChEcK);
                 DisplayHistogram(cHaRfReQuEnCy);
 
-                string fIlEpAtH = "C:\\Users\\kamil\\Desktop\\Wynik\\wynik.txt";
-
+                string fIlEpAtH = @"C:\Users\Radziulek\Desktop\Wynik\wynik.txt";
                 try
                 {
                     SaveHistogramToFile(fIlEpAtH, cHaRfReQuEnCy);
